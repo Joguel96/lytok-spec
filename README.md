@@ -1,3 +1,7 @@
+<p align="center">
+<img src="assets/icon/codnn-logo-256x256.png" alt="CODNN Logo" width="200">
+</p>
+
 # CODNN Specification (Open Core)
 
 **CODNN** (Compact Object Data Native Notation) es un estándar de serialización híbrido diseñado para optimizar el intercambio de información en entornos de alta carga y aplicaciones de Inteligencia Artificial.
