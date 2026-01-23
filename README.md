@@ -73,7 +73,7 @@ Cuando se utiliza el modo **Formatted** (`formatted: true`), se aplican las sigu
 
 - **Registros raíz:** El esquema uniforme indica la cantidad total: `#lote[5]`.
 
-- **Conteoo en arreglos anidados:** Inician con el número de registros y un delimitador: `[2|`. El número está al nivel del bracket de apertura, mientras que los datos siguen la indentación.
+- **Conteo en arreglos anidados:** Inician con el número de registros y un delimitador: `[2|`. El número está al nivel del bracket de apertura, mientras que los datos siguen la indentación.
 
 **2. Separadores Estructurales:**
 
