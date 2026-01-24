@@ -1,0 +1,395 @@
+(* CODNN (Compact Object Data Native Notation)
+Formal Grammar Specification v1.0
+*)
+codnn_document
+       = uniform_collection
+       | simple_collection
+       | mixed_collection;
+
+(* --- Colecciones (Soporte Minified y Formatted) --- *)
+(* Estructura de los arreglos: uniforme, simple y mixto *)
+uniform_collection
+       = uniform_header, separador_schema_data, [ newline ], uniform_body;
+
+simple_collection
+       = type_symbol, simple_body
+       | type_symbol, [ newline ], simple_body;
+
+mixed_collection
+       = mixed_symbol, mixed_body
+       | mixed_symbol, [ newline ], mixed_body;
+
+(* --- Estructura del Header Uniform --- *)
+uniform_header
+       = "#", identifier, [ "[", integer, "]" ], ":", [ newline ], fields;
+
+fields
+       = field, { "|", field };
+
+arr_fields
+       = field, { "$", field };
+
+field
+       = identifier, [ type_symbol ], [ map_definition
+       | array_definition ];
+
+map_definition
+       = "{", fields, "}"
+       | "{", [ newline ], [ whitespace ], fields, [ newline ], "}";
+
+array_definition
+       = "[", ( arr_fields
+       | type_symbol ), "]"
+       | "[", ( { [ newline ], [ whitespace ], arr_fields, [ newline ] }
+       | type_symbol ), "]";
+
+(* --- Estructura del Body --- *)
+uniform_body
+       = uniform_row, { uniform_separator, uniform_row }, [ uniform_separator ];
+
+uniform_separator
+       = ";"
+       | ( [ whitespace ], newline, [ whitespace ], "-", [ whitespace ], newline );
+
+uniform_row
+       = value
+       | [ whitespace ], value, { "|", [ whitespace ], value };
+
+(* Arreglos Simples: #val1;val2... *)
+simple_body
+       = [ whitespace ], value, { simple_separator, [ whitespace ], value }, [ simple_separator ];
+
+simple_separator
+       = ";"
+       | newline;
+
+(* Arreglos Mixtos: *#val1;?val2... *)
+mixed_body
+       = [ whitespace ], typed_value, { simple_separator, [ whitespace ], typed_value }, [ simple_separator ];
+
+(* --- Valores y Tipos --- *)
+value
+       = primitive
+       | complex_value
+       | null_value;
+
+typed_value
+       = type_prefix, value;
+
+primitive
+       = number
+       | boolean
+       | date
+       | bigint
+       | text;
+
+complex_value
+       = map_instance
+       | array_instance;
+
+type_symbol
+       = header_symbol
+       | "`";
+
+header_symbol
+       = "#"
+       | "?"
+       | "@"
+       | "&"
+       | "*";
+
+type_prefix
+       = type_symbol;
+
+null_value
+       = "^";
+
+boolean
+       = "?T"
+       | "?F"
+       | "?true"
+       | "?false";
+
+number
+       = "#", [ "-" ], digit, { digit }, [ ".", { digit } ];
+
+bigint
+       = "&", [ "-" ], digit, { digit };
+
+date
+       = "@", iso_8601_string;
+
+(* --- Texto y Escapes --- *)
+text
+       = quoted_text
+       | plain_text;
+
+quoted_text
+       = "`", { "``"
+       | any_char_except_backtick }, "`";
+
+plain_text
+       = { any_char_except_delimiters };
+
+(* --- Bloques Dinámicos (Recursividad) --- *)
+map_instance
+       = "{", [ newline ], map_content, [ newline ], [ whitespace ], "}";
+
+map_content
+       = [ whitespace ], identifier, ":", value, { ( "|"
+       | newline ), [ whitespace ], identifier, ":", value };
+
+array_instance
+       = "[", [ integer, "|" ], [ newline ], array_content, [ newline ], [ whitespace ], "]";
+
+array_content
+       = [ whitespace ], value, { ( "$"
+       | newline ), [ whitespace ], value };
+
+(* --- Terminales y Símbolos --- *)
+separador_schema_data
+       = "::";
+
+sub_array_delimiter
+       = "$";
+
+root_array_delimiter
+       = ";"
+       | "\n-\n";
+
+mixed_symbol
+       = "*";
+
+identifier
+       = letter, { letter
+       | digit };
+
+integer
+       = digit, { digit };
+
+digit
+       = "0"
+       | "1"
+       | "2"
+       | "3"
+       | "4"
+       | "5"
+       | "6"
+       | "7"
+       | "8"
+       | "9";
+
+letter
+       = "A"
+       | "B"
+       | "C"
+       | "D"
+       | "E"
+       | "F"
+       | "G"
+       | "H"
+       | "I"
+       | "J"
+       | "K"
+       | "L"
+       | "M"
+       | "N"
+       | "O"
+       | "P"
+       | "Q"
+       | "R"
+       | "S"
+       | "T"
+       | "U"
+       | "V"
+       | "W"
+       | "X"
+       | "Y"
+       | "Z"
+       | "a"
+       | "b"
+       | "c"
+       | "d"
+       | "e"
+       | "f"
+       | "g"
+       | "h"
+       | "i"
+       | "j"
+       | "k"
+       | "l"
+       | "m"
+       | "n"
+       | "o"
+       | "p"
+       | "q"
+       | "r"
+       | "s"
+       | "t"
+       | "u"
+       | "v"
+       | "w"
+       | "x"
+       | "y"
+       | "z";
+
+whitespace
+       = { "  "
+       | "\t" };
+
+newline
+       = "\n"
+       | "\r\n";
+
+any_char_except_backtick
+       = ? cualquier carácter Unicode ? - "`";
+
+iso_8601_string
+       = year, "-", month, "-", day, [ "T", hour, ":", minute, ":", second, [ ".", millis ], "Z" ];
+
+year
+       = digit, digit, digit, digit;
+
+month
+       = "01"
+       | "02"
+       | "03"
+       | "04"
+       | "05"
+       | "06"
+       | "07"
+       | "08"
+       | "09"
+       | "10"
+       | "11"
+       | "12";
+
+day
+       = "01"
+       | "02"
+       | "03"
+       | "04"
+       | "05"
+       | "06"
+       | "07"
+       | "08"
+       | "09"
+       | "10"
+       | "11"
+       | "12"
+       | "13"
+       | "14"
+       | "15"
+       | "16"
+       | "17"
+       | "18"
+       | "19"
+       | "20"
+       | "21"
+       | "22"
+       | "23"
+       | "24"
+       | "25"
+       | "26"
+       | "27"
+       | "28"
+       | "29"
+       | "30"
+       | "31";
+
+hour
+       = "00"
+       | "01"
+       | "02"
+       | "03"
+       | "04"
+       | "05"
+       | "06"
+       | "07"
+       | "08"
+       | "09"
+       | "10"
+       | "11"
+       | "12"
+       | "13"
+       | "14"
+       | "15"
+       | "16"
+       | "17"
+       | "18"
+       | "19"
+       | "20"
+       | "21"
+       | "22"
+       | "23";
+
+minute
+       = digit0_59;
+
+second
+       = digit0_59;
+
+millis
+       = digit, digit, digit;
+
+digit0_59
+       = "0"
+       | "1"
+       | "2"
+       | "3"
+       | "4"
+       | "5"
+       | "6"
+       | "7"
+       | "8"
+       | "9"
+       | "10"
+       | "11"
+       | "12"
+       | "13"
+       | "14"
+       | "15"
+       | "16"
+       | "17"
+       | "18"
+       | "19"
+       | "20"
+       | "21"
+       | "22"
+       | "23"
+       | "24"
+       | "25"
+       | "26"
+       | "27"
+       | "28"
+       | "29"
+       | "30"
+       | "31"
+       | "32"
+       | "33"
+       | "34"
+       | "35"
+       | "36"
+       | "37"
+       | "38"
+       | "39"
+       | "40"
+       | "41"
+       | "42"
+       | "43"
+       | "44"
+       | "45"
+       | "46"
+       | "47"
+       | "48"
+       | "49"
+       | "50"
+       | "51"
+       | "52"
+       | "53"
+       | "54"
+       | "55"
+       | "56"
+       | "57"
+       | "58"
+       | "59";
