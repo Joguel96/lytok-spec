@@ -1,0 +1,53 @@
+#lote[2]:
+  id|fecha|stock_total#|es_importado?|es_certificado?|fabricante{
+    nombre|registro|direccion{
+      calle|ciudad|zip#
+    }
+  }|datosLaboratorio{
+    fecha_prueba|direccion{
+      calle|edificio|referencia
+    }
+  }|certificaciones[
+    nombre_cert|valida_hasta
+  ]|sucursales[
+    nombre|ciudad|empleados[
+      nombre|apellido|datos{
+        calle|numero#|telefono#|correo
+      }
+    ]
+  ]::
+`L|001`2025-11-20|50000|F|T{
+    Acme Corp|0123456789{
+        Calle Falsa 123|Springfield|62000
+    }
+}^[2|
+    ISO-9001|2026-01-01$CQC-A|2027-05-15
+][2|
+    suc-52|La Paz[2|
+        Maria|Perez{
+            calle imaginaria|520|6489635672|maria.perez@mail.com
+        }$`Eusebio;`Mendez{
+            calle imaginaria sur|580|6489635652|eusebio.m@mail.com
+        }
+    ]$suc-105|Tepito^
+]
+-
+L002|2025-11-20|15000|T|F{
+    Industrias Z|987654321{
+        Av. Siempre Viva 742|CDMX|90210
+    }
+}{
+    2025-11-25{
+        Rio Tiber|Torre Central|2ndo piso
+    }
+}[2|
+    ISO-9001|2026-01-01$Cert_MX_IM|2026-01-01
+][2|
+    suc-52|La Paz[2|
+        Maria|Perez{
+            calle imaginaria|520|6489635672|maria.perez@mail.com
+        }$`Eusebio;`Mendez{
+            calle imaginaria sur|580|6489635652|eusebio.m@mail.com
+        }
+    ]
+]

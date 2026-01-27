@@ -2,6 +2,12 @@
 <img src="assets/icon/codnn-logo-256x256.png" alt="CODNN Logo" width="200">
 </p>
 
+<p align="center">
+<img src="https://img.shields.io/badge/version-1.0.0--beta-blue" alt="Version">
+<img src="https://img.shields.io/badge/license-Apache 2.0-orange" alt="License">
+<img src="https://img.shields.io/badge/format-.odn-purple" alt="Format">
+</p>
+
 # CODNN Specification (Open Core)
 
 **CODNN** (Compact Object Data Native Notation) es un estándar de serialización híbrido diseñado para optimizar el intercambio de información en entornos de alta carga y aplicaciones de Inteligencia Artificial.
@@ -100,7 +106,7 @@ Ciertos valores permiten omitir el separador estructural (| o $) para ahorrar es
 #### Ejemplo Formateado Complejo:
 
 ```Text
-#lote[5]:
+#lote[2]:
   id|fecha|stock_total#|es_importado?|es_certificado?|fabricante{
     nombre|registro|direccion{
       calle|ciudad|zip#
@@ -160,6 +166,8 @@ L002|2025-11-20|15000|T|F{
 ### SDK's disponibles
 
 - #### [JS](https://github.com/Joguel96/codnn-js)
+
+---
 
 ### 📜 Licencia
 
