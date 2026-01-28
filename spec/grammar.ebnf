@@ -1,4 +1,4 @@
-(* LYTOK (Compact Object Data Native Notation)
+(* LYTOK (Lightweight Token Object Notation)
 Formal Grammar Specification v1.0
 *)
 lytok_document
@@ -155,7 +155,7 @@ sub_array_delimiter
 
 root_array_delimiter
        = ";"
-       | "\n-\n";
+       | ";\n";
 
 mixed_symbol
        = "*";
