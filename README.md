@@ -1,22 +1,22 @@
 <p align="center">
-<img src="assets/icon/codnn-logo-256x256.png" alt="CODNN Logo" width="200">
+<img src="assets/icon/logo-1024.png" alt="LYTOK Logo" width="250">
 </p>
 
 <p align="center">
 <img src="https://img.shields.io/badge/version-1.0.0--beta-blue" alt="Version">
 <img src="https://img.shields.io/badge/license-Apache 2.0-orange" alt="License">
-<img src="https://img.shields.io/badge/format-.odn-purple" alt="Format">
+<img src="https://img.shields.io/badge/format-.ltk-purple" alt="Format">
 </p>
 
-# CODNN Specification (Open Core)
+# LYTOK: Arquitectura de símbolos
 
-**CODNN** (Compact Object Data Native Notation) es un estándar de serialización híbrido diseñado para optimizar el intercambio de información en entornos de alta carga y aplicaciones de Inteligencia Artificial.
+**LYTOK** (Lightweight Token Object Notation) es un estándar de serialización híbrido diseñado para maximizar la eficiencia en el intercambio de datos para Inteligencia Artificial y sistemas de alta concurrencia.
 
-El formato utiliza la extensión oficial .odn (Open Data Notation).
+El formato utiliza la extensión oficial .ltk
 
 ---
 
-### 💡 ¿Por qué existe CODNN?
+### 💡 ¿Por qué LYTOK?
 
 El mundo se mueve sobre **JSON**, un formato excelente para la legibilidad humana pero costoso para el procesamiento de máquinas y modelos de lenguaje (LLMs). En la era de la IA, cada carácter cuenta:
 
@@ -24,11 +24,11 @@ El mundo se mueve sobre **JSON**, un formato excelente para la legibilidad human
 
 - **Ambigüedad de Tipos:** JSON no diferencia nativamente entre un entero y un flotante, ni soporta fechas o BigInts sin transformaciones adicionales que degradan el rendimiento.
 
-CODNN nace para ser la "destilación" de los datos: mantiene la estructura pero elimina el ruido.
+LYTOK nace para ser la "destilación" de los datos: mantiene la estructura pero elimina el ruido.
 
 ### 🏗️ Modos de Operación y Sintaxis
 
-La sintaxis de CODNN cambia según la homogeneidad de los datos para maximizar el ahorro de espacio.
+La sintaxis de LYTOK cambia según la homogeneidad de los datos para maximizar el ahorro de espacio.
 
 #### 1. Arreglos Uniformes (#Schema).
 
@@ -54,7 +54,7 @@ Para datos heterogéneos. Cada valor debe llevar su prefijo de tipo.
 
 ### 💎 Tipos de Datos Avanzados
 
-##### CODNN soporta nativamente tipos que otros formatos de texto ignoran, garantizando cero pérdida de precisión:
+##### LYTOK soporta nativamente tipos que otros formatos de texto ignoran, garantizando cero pérdida de precisión:
 
 | Símbolo |  Tipo   |                                Regla Técnica                                |
 | :-----: | :-----: | :-------------------------------------------------------------------------: |
@@ -77,7 +77,7 @@ Cuando se utiliza el modo **Formatted** (`formatted: true`), se aplican las sigu
 
 - **Manejo de espacios:** En los textos, los espacios dentro de los delimitadores son respetados de forma nativa.
 
-- **Registros raíz:** El esquema uniforme indica la cantidad total: `#lote[5]`.
+- **Registros raíz:** El esquema uniforme indica la cantidad total: `#lote[2]`.
 
 - **Conteo en arreglos anidados:** Inician con el número de registros y un delimitador: `[2|`. El número está al nivel del bracket de apertura, mientras que los datos siguen la indentación.
 
@@ -85,9 +85,9 @@ Cuando se utiliza el modo **Formatted** (`formatted: true`), se aplican las sigu
 
 - `|` : Separador de campos en Mapas/Objetos.
 
-- `\n-\n` : Separador de registros en Arreglos de nivel superior para arreflos uniformes (formatted).
+- `;\n` : Separador de registros en Arreglos de nivel superior para arreflos formatted.
 
-- `;` : Separador de elementos en Arreglos de nivel superior para arreglos simples/mixtos(minified y formatted) y uniformes (minified).
+- `;` : Separador de elementos en Arreglos de nivel superior para arreglos minified.
 
 - `$` : Separador de elementos en Arreglos anidados.
 
@@ -138,8 +138,7 @@ Ciertos valores permiten omitir el separador estructural (| o $) para ahorrar es
             calle imaginaria sur|580|6489635652|eusebio.m@mail.com
         }
     ]$suc-105|Tepito^
-]
--
+];
 L002|2025-11-20|15000|T|F{
     Industrias Z|987654321{
         Av. Siempre Viva 742|CDMX|90210
@@ -161,20 +160,20 @@ L002|2025-11-20|15000|T|F{
 
 - `/assets`: Identidad visual y diagramas de flujo de datos.
 
-- `/examples`: Archivos .odn con casos de uso reales.
+- `/examples`: Archivos .ltk con casos de uso reales.
 
 ### SDK's disponibles
 
-- #### [JS](https://github.com/Joguel96/codnn-js)
+- #### [JS](https://github.com/Joguel96/lytok-js)
 
 ---
 
 ### 📜 Licencia
 
-- #### Especificación (Gramática y Reglas): [Apache License 2.0](https://github.com/Joguel96/codnn-spec/blob/main/spec/LICENSE)
+- #### Especificación (Gramática y Reglas): [Apache License 2.0](https://github.com/Joguel96/lytok-spec/blob/main/spec/LICENSE)
 
-- #### Compliance Suite y Herramientas: [MIT License](https://github.com/Joguel96/codnn-spec/blob/main/compliance/LICENSE)
+- #### Compliance Suite y Herramientas: [MIT License](https://github.com/Joguel96/lytok-spec/blob/main/compliance/LICENSE)
 
 ---
 
-_Desarrollado por [joguel96](https://github.com/joguel96). CODNN es la respuesta a la necesidad de un transporte de datos más inteligente y ligero._
+_Desarrollado por [joguel96](https://github.com/joguel96). LYTOK es la respuesta a la necesidad de un transporte de datos más inteligente y ligero._

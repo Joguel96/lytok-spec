@@ -1,7 +1,7 @@
-(* CODNN (Compact Object Data Native Notation)
+(* LYTOK (Compact Object Data Native Notation)
 Formal Grammar Specification v1.0
 *)
-codnn_document
+lytok_document
        = uniform_collection
        | simple_collection
        | mixed_collection;

@@ -1,6 +1,6 @@
-# CODNN Compliance Test Specification
+# LYTOK Compliance Test Specification
 
-Esta suite de pruebas define el comportamiento esperado para cualquier implementación de un parser de CODNN.
+Esta suite de pruebas define el comportamiento esperado para cualquier implementación de un parser de LYTOK.
 
 ## 📝 Metodología de Prueba
 
@@ -8,7 +8,7 @@ Para validar un parser, este debe ser capaz de procesar los archivos en `/valid`
 
 #### 1. Pruebas de Validez (`/valid`)
 
-A diferencia de otros formatos, la validación de CODNN no se realiza comparando contra archivos JSON (debido a la falta de soporte nativo para BigInt y Date en JSON estándar). El parser debe:
+A diferencia de otros formatos, la validación de LYTOK no se realiza comparando contra archivos JSON (debido a la falta de soporte nativo para BigInt y Date en JSON estándar). El parser debe:
 
 **Cotejo Nativo:** Comparar el objeto o arreglo resultante del parseo contra una estructura de datos nativa predefinida en el lenguaje de implementación.
 
@@ -24,11 +24,11 @@ A diferencia de otros formatos, la validación de CODNN no se realiza comparando
 
 El parser debe arrojar una excepción o error si encuentra:
 
-- **missing-header.odn:** Falta el header (schema) en una estructura uniforme.
+- **missing-header.ltk:** Falta el header (schema) en una estructura uniforme.
 
-- **type-mismatch.odn:** Un valor en modo simple que no coincide con el símbolo global (ej: # seguido de texto sin escapar).
+- **type-mismatch.ltk:** Un valor en modo simple que no coincide con el símbolo global (ej: # seguido de texto sin escapar).
 
-- **malformed.odn:** Brackets o llaves sin cerrar o falta del delimitador del header y la data.
+- **malformed.ltk:** Brackets o llaves sin cerrar o falta del delimitador del header y la data.
 
 ### 📝 Requerimientos de Tipado
 
